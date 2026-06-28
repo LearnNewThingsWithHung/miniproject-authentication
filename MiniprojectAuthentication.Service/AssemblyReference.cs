@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace MiniprojectAuthentication.Service;
+namespace MiniProjectAuthentication.Service;
 
 public static class AssemblyReference
 {

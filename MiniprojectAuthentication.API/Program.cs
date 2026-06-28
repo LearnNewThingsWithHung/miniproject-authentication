@@ -1,10 +1,10 @@
 using System.Reflection.Metadata;
-using MiniprojectAuthentication.API.Extensions;
-using MiniprojectAuthentication.API.Middleware;
-using MiniprojectAuthentication.Repo;
+using MiniProjectAuthentication.API.Extensions;
+using MiniProjectAuthentication.API.Middleware;
+using MiniProjectAuthentication.Repo;
 using Microsoft.EntityFrameworkCore;
-using MailService = MiniprojectAuthentication.Service.MailService;
-using JwtService = MiniprojectAuthentication.Service.JwtService;
+using MailService = MiniProjectAuthentication.Service.MailService;
+using JwtService = MiniProjectAuthentication.Service.JwtService;
 
 
     var builder = WebApplication.CreateBuilder(args);

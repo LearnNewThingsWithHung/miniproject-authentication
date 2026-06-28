@@ -1,8 +1,7 @@
-﻿
-using MiniprojectAuthentication.Service.Exceptions;
-using MiniprojectAuthentication.Service.Models;
+﻿using MiniProjectAuthentication.Service.Exceptions;
+using MiniProjectAuthentication.Service.Models;
 
-namespace MiniprojectAuthentication.API.Middleware;
+namespace MiniProjectAuthentication.API.Middleware;
 
 public class GlobalExceptionHandlerMiddleware : IMiddleware
 {

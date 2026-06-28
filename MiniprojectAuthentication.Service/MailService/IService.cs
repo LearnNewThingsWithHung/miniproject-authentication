@@ -1,4 +1,4 @@
-﻿namespace MiniprojectAuthentication.Service.MailService;
+﻿namespace MiniProjectAuthentication.Service.MailService;
 
 public interface IService
 {

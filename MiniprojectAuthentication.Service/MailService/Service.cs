@@ -4,7 +4,7 @@ using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 
-namespace MiniprojectAuthentication.Service.MailService;
+namespace MiniProjectAuthentication.Service.MailService;
 
 public class Service: IService
 {

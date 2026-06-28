@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace MiniprojectAuthentication.Service.JwtService;
+namespace MiniProjectAuthentication.Service.JwtService;
 
 public interface IService
 {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.RateLimiting;
 
-namespace MiniprojectAuthentication.API.Extensions;
+namespace MiniProjectAuthentication.API.Extensions;
 
 public static class RateLimitExtensions
 {

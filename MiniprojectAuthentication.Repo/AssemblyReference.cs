@@ -1,11 +1,9 @@
 ﻿using System.Reflection;
 
-namespace MiniprojectAuthentication.Repo;
+namespace MiniProjectAuthentication.Repo;
 
-// public class AssemblyReference
-// {
-//     public static class AssemblyReference
-//     {
-//         public static readonly Assembly Assembly = typeof(AssemblyReference).Assembly;
-//     }
-// }
+
+public static class AssemblyReference
+{
+    public static readonly Assembly Assembly = typeof(AssemblyReference).Assembly;
+}

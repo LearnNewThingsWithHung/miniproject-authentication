@@ -1,4 +1,4 @@
-﻿namespace MiniprojectAuthentication.Repo.Abstraction;
+﻿namespace MiniProjectAuthentication.Repo.Abstraction;
 
 public abstract class BaseEntity<Tkey>
 {

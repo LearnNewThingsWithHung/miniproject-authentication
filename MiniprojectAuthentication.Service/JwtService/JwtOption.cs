@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MiniprojectAuthentication.Service.JwtService;
+namespace MiniProjectAuthentication.Service.JwtService;
 
 public class JwtOption
 {

@@ -1,4 +1,4 @@
-﻿namespace MiniprojectAuthentication.Service.Exceptions;
+﻿namespace MiniProjectAuthentication.Service.Exceptions;
 
 public class ServerException : AppException
 {

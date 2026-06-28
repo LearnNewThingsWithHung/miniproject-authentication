@@ -1,4 +1,4 @@
-﻿namespace MiniprojectAuthentication.Service;
+﻿namespace MiniProjectAuthentication.Service;
 
 public class Class1
 {

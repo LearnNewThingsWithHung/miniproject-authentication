@@ -1,4 +1,4 @@
-﻿namespace MiniprojectAuthentication.Service.Models;
+﻿namespace MiniProjectAuthentication.Service.Models;
 
 using System;
 using System.Collections;

@@ -16,10 +16,4 @@
         <PackageReference Include="Quartz.Extensions.Hosting" Version="3.17.1" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Configurations\Seed\" />
-      <Folder Include="Entity\" />
-      <Folder Include="Enum\" />
-    </ItemGroup>
-
 </Project>

@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace MiniprojectAuthentication.Service.JwtService;
+namespace MiniProjectAuthentication.Service.JwtService;
 
 public class Service: IService
 {

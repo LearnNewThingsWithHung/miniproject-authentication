@@ -1,11 +1,11 @@
 ﻿using System.Security.Claims;
 using System.Text;
-using MiniprojectAuthentication.Service.Exceptions;
-using MiniprojectAuthentication.Service.JwtService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using MiniProjectAuthentication.Service.Exceptions;
+using MiniProjectAuthentication.Service.JwtService;
 
-namespace MiniprojectAuthentication.API.Extensions;
+namespace MiniProjectAuthentication.API.Extensions;
 
 public static class JwtExtensions
 {

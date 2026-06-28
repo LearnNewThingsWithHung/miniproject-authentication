@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
-namespace MiniprojectAuthentication.API.Extensions;
+namespace MiniProjectAuthentication.API.Extensions;
 
 public static class SwaggerExtensions
 {

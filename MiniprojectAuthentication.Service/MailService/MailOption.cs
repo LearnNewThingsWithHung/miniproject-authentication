@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MiniprojectAuthentication.Service.MailService;
+namespace MiniProjectAuthentication.Service.MailService;
 
 public class MailOptions
 {

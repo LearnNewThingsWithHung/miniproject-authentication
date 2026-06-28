@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-namespace MiniprojectAuthentication.API.Controller;
+namespace MiniProjectAuthentication.API.Controller;
 
 [ApiController]
 [Route("[controller]")]

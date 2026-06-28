@@ -1,4 +1,4 @@
-﻿namespace MiniprojectAuthentication.API;
+﻿namespace MiniProjectAuthentication.API;
 
 public class WeatherForecast
 {
