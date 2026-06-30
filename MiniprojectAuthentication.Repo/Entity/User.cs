@@ -9,6 +9,8 @@ public class User: BaseEntity<Guid>, IAuditableEntity
     public Guid Id { get; set; }
     public Role Role { get; set; } = Role.Customer;
     public string Email { get; set; } = null!;
+    public string? PhoneNumber { get; set; }= null!;
+    public bool PhoneNumberConfirmed { get; set; } = false;
     public string PasswordHash { get; set; } = null!;
     public bool EmailVerified { get; set; } = false;
     public bool IsLocked { get; set; } = false;
