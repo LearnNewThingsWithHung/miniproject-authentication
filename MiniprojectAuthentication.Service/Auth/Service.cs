@@ -72,7 +72,7 @@ public class Service: IService
 
             var codeVerify = random.Next(100000, 999999);
             var key = request.Email;
-            var value = codeVerify;
+            var value = codeVerify.ToString();
 
             await _cacheService.Set(key, value, TimeSpan.FromMinutes(5));
 
@@ -139,5 +139,31 @@ public class Service: IService
             RefreshToken = refreshToken,
             Message = "Đăng nhập thành công"
         };
+    }
+
+    public async Task<string> VerifyEmail(Request.VerifyEmailRequest request)
+    {
+        var isExistEmail = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
+        if (isExistEmail == null)
+        {
+            throw new NotFoundException("Không tìm thấy email");
+        }
+        
+        var code = await _cacheService.Get<string>(request.Email);
+        
+        if (code == null)
+        {
+            throw new NotFoundException("Không tìm thấy code, vui lòng gửi lại");
+        }
+
+        if (code != request.Code)
+        {
+            throw new ConflictException("Code không khớp, vui lòng thử lại");
+        }
+        
+        isExistEmail.EmailVerified = true;
+        await _cacheService.Remove(request.Email);
+        await _dbContext.SaveChangesAsync();
+        return "Xác thực email thành công";
     }
 }

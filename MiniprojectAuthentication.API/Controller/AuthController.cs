@@ -29,4 +29,11 @@ public class AuthController: ControllerBase
         return Ok(ApiResponseFactory.Base(result.Message, true,"", HttpContext.TraceIdentifier));
     }
     
+    [HttpPost("/api/v1/auth/verify-email")]
+    public async Task<IActionResult> Login([FromBody]Request.VerifyEmailRequest request)
+    {
+        var result = await _authService.VerifyEmail(request);
+        return Ok(ApiResponseFactory.Base(result, true,"", HttpContext.TraceIdentifier));
+    }
+    
 }
