@@ -40,50 +40,50 @@ public class Service: IService
         {
             throw new ConflictException("User with this email already exists");
         }
-    
-        var transactions = await _dbContext.Database.BeginTransactionAsync();
+        
+        var hashedPassword = BCrypt.Net.BCrypt.EnhancedHashPassword(request.Password, hashType: BCrypt.Net.HashType.SHA256); 
+            
+        var newUser = new User
+        {
+            Id = Guid.NewGuid(),
+            Role = Role.Customer,
+            Email = request.Email,
+            EmailVerified = false,
+            PasswordHash = hashedPassword,
+            PhoneNumber = request.PhoneNumber,
+            PhoneNumberConfirmed =  false,
+            IsLocked = false,
+        };
+        await _dbContext.Users.AddAsync(newUser);
+        await _dbContext.SaveChangesAsync();
+
         try
         {
-            var hashedPassword = BCrypt.Net.BCrypt.EnhancedHashPassword(request.Password, hashType: BCrypt.Net.HashType.SHA256); 
-            
-            var newUser = new User
-            {
-                Id = Guid.NewGuid(),
-                Role = Role.Customer,
-                Email = request.Email,
-                EmailVerified = false,
-                PasswordHash = hashedPassword,
-                PhoneNumber = request.PhoneNumber,
-                PhoneNumberConfirmed =  false,
-                IsLocked = false,
-            };
-            
+
             Random random = new Random();
-            
+
             var codeVerify = random.Next(100000, 999999);
             var key = request.Email;
             var value = codeVerify;
-            
-            await _cacheService.Set(key, value,TimeSpan.FromMinutes(5));
+
+            await _cacheService.Set(key, value, TimeSpan.FromMinutes(5));
 
             await _emailService.SendMail(new MailContent()
             {
-                To =  request.Email,
+                To = request.Email,
                 Subject = "Chào mừng bạn đến với dự án mini của tôi",
                 Body = MailTemplate.EmailContainOtp(codeVerify.ToString())
             });
-            
-            
-            await _dbContext.SaveChangesAsync();
-            await _dbContext.Users.AddAsync(newUser);
-            await transactions.CommitAsync();
-            return "Registration successful";
+
         }
-        catch
+        catch (Exception ex)
         {
-            await transactions.RollbackAsync();
-            throw;
+            return "Đăng ký thành công. Đang gặp sự cố gửi mail, vui lòng bấm nút Gửi lại mã OT";
         }
+
+
+        return "Đăng ký thành công";
+        
     }
 
     public Task<string> Login(Request.LoginRequest request)
