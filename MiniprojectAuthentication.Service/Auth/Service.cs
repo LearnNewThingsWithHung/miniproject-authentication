@@ -1,10 +1,13 @@
-﻿using FluentValidation;
+﻿using System.Security.Claims;
+using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using MiniProjectAuthentication.Repo;
 using MiniProjectAuthentication.Repo.Entity;
 using MiniProjectAuthentication.Repo.Enum;
 using MiniProjectAuthentication.Service.Exceptions;
 using MiniProjectAuthentication.Service.MailService;
+using ArgumentException = MiniProjectAuthentication.Service.Exceptions.ArgumentException;
 using ValidationException = FluentValidation.ValidationException;
 
 namespace MiniProjectAuthentication.Service.Auth;
@@ -15,15 +18,20 @@ public class Service: IService
     private readonly IValidator<Request.RegisterRequest> _registerValidator;
     private readonly MailService.IService _emailService;
     private readonly CacheService.IService _cacheService;
+    private readonly JwtService.IService _jwtService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public Service(AppDbContext context, 
         IValidator<Request.RegisterRequest> registerValidator, 
-        MailService.IService emailService, CacheService.IService cacheService)
+        MailService.IService emailService, CacheService.IService cacheService, 
+        JwtService.IService jwtService, IHttpContextAccessor httpContextAccessor)
     {
         _dbContext = context;
         _registerValidator = registerValidator;
         _emailService = emailService;
         _cacheService = cacheService;
+        _jwtService = jwtService;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<string> Register(Request.RegisterRequest request)
@@ -86,8 +94,50 @@ public class Service: IService
         
     }
 
-    public Task<string> Login(Request.LoginRequest request)
+    public async Task<Response.LoginResponse> Login(Request.LoginRequest request)
     {
-        throw new NotImplementedException();
+        var isExistEmail = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
+        if (isExistEmail == null)
+        {
+            throw new BadRequestException("Email không tồn tại trong hệ thống");
+        }
+        var hashedPassword = BCrypt.Net.BCrypt.EnhancedVerify(
+            request.Password, isExistEmail.PasswordHash,
+                hashType: BCrypt.Net.HashType.SHA256);
+        if (!hashedPassword)
+        {
+            throw new BadRequestException("Password không khớp");
+        }
+
+        var newClaims = new List<Claim>()
+        {
+            new Claim("UserId", isExistEmail.Id.ToString()),
+            new Claim("Email", isExistEmail.Email),
+            new Claim("Role", isExistEmail.Role.ToString()),
+        };
+        
+        var accessToken = _jwtService.GenerateAccessToken(newClaims);
+        var refreshToken = _jwtService.GenerateRefreshToken();
+
+        var newRefreshToken = new RefreshToken()
+        {
+            Id = Guid.NewGuid(),
+            UserId =  isExistEmail.Id,
+            TokenHash = refreshToken,
+            Revoked = false,
+            RevokedAt = null,
+            CreatedAt = DateTime.UtcNow,
+            ExpiredAt = DateTime.UtcNow.AddDays(7),
+        };
+
+        _dbContext.Add(newRefreshToken);
+        await _dbContext.SaveChangesAsync();
+
+        return new Response.LoginResponse()
+        {
+            AccescToken = accessToken,
+            RefreshToken = refreshToken,
+            Message = "Đăng nhập thành công"
+        };
     }
 }

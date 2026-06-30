@@ -16,8 +16,6 @@ public static class RefreshTokenSeed
                 ExpiredAt = new DateTime(2026, 7, 30, 0, 0, 0, DateTimeKind.Utc),
                 Revoked = false,
                 RevokedAt = null,
-                DeviceName = "Chrome / Windows 11",
-                IpAddress = "192.168.1.5",
                 CreatedAt = new DateTime(2026, 6, 28, 10, 0, 0, DateTimeKind.Utc)
             },
             new RefreshToken
@@ -28,8 +26,6 @@ public static class RefreshTokenSeed
                 ExpiredAt = new DateTime(2026, 6, 15, 0, 0, 0, DateTimeKind.Utc),
                 Revoked = true,
                 RevokedAt = new DateTime(2026, 6, 10, 15, 30, 0, DateTimeKind.Utc),
-                DeviceName = "Safari / iPhone 15 Pro",
-                IpAddress = "172.16.0.42",
                 CreatedAt = new DateTime(2026, 6, 1, 10, 35, 0, DateTimeKind.Utc)
             }
         );

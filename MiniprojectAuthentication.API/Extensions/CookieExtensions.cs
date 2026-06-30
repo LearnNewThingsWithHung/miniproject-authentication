@@ -2,8 +2,8 @@
 
 public static class CookieExtensions
 {
-    public const string AccessTokenCookieName = "X-Access-Token";
-    public const string RefreshTokenCookieName = "X-Refresh-Token";
+    public const string AccessTokenCookieName = "MiniProject-Access-Token";
+    public const string RefreshTokenCookieName = "MiniProject-Refresh-Token";
 
     
     public static void WriteAuthCookies(this HttpResponse response, string accessToken, string refreshToken)
@@ -15,7 +15,7 @@ public static class CookieExtensions
             Secure = true,
             SameSite = SameSiteMode.Lax,
             Path = "/",
-            Expires = DateTimeOffset.UtcNow.AddMinutes(15)
+            Expires = DateTimeOffset.UtcNow.AddHours(2)
         };
 
         var refreshOptions = new CookieOptions
